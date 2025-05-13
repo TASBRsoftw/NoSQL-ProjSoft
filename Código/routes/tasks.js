@@ -43,4 +43,18 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// GET /api/tasks/:id - Buscar tarefa por ID
+router.get('/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ message: 'Tarefa não encontrada' });
+    }
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar tarefa', error });
+  }
+});
+
+
 module.exports = router;
